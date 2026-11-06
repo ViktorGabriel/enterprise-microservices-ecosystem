@@ -1,0 +1,355 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CloudSec CLI",
+          "semanticVersion": "0.1.0",
+          "informationUri": "https://github.com/ViktorGabriel/developer-platform-cli-tool",
+          "rules": [
+            {
+              "id": "SEC-SEC-007",
+              "name": "SEC_SEC_007",
+              "shortDescription": {
+                "text": "Valor com alta entropia (possível segredo ou chave privada)"
+              },
+              "fullDescription": {
+                "text": "A chave 'spring.datasource.url' possui entropia calculada de 5.20, indicando alta aleatoriedade típica de segredos gerados criptograficamente."
+              },
+              "help": {
+                "text": "A chave 'spring.datasource.url' possui entropia calculada de 5.20, indicando alta aleatoriedade típica de segredos gerados criptograficamente.\n\nRemediação recomendada: Verifique se este valor é um segredo e extraia para variáveis de ambiente."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "SECRETS",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "SEC-SEC-006",
+              "name": "SEC_SEC_006",
+              "shortDescription": {
+                "text": "Senha ou credencial sensível em texto claro"
+              },
+              "fullDescription": {
+                "text": "A chave sensível 'spring.datasource.password' contém um valor em texto claro persistido."
+              },
+              "help": {
+                "text": "A chave sensível 'spring.datasource.password' contém um valor em texto claro persistido.\n\nRemediação recomendada: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager)."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "SECRETS",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "SEC-SEC-004",
+              "name": "SEC_SEC_004",
+              "shortDescription": {
+                "text": "URI de banco de dados com credenciais em texto claro"
+              },
+              "fullDescription": {
+                "text": "Padrão de segredo identificado na chave 'DATABASE_URL'."
+              },
+              "help": {
+                "text": "Padrão de segredo identificado na chave 'DATABASE_URL'.\n\nRemediação recomendada: Não armazene senhas na string de conexão em arquivos de configuração; injete via variáveis em runtime."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "category": "SECRETS",
+                "severity": "HIGH"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SEC-SEC-007",
+          "level": "error",
+          "message": {
+            "text": "Valor com alta entropia (possível segredo ou chave privada): A chave 'spring.datasource.url' possui entropia calculada de 5.20, indicando alta aleatoriedade típica de segredos gerados criptograficamente. (Remediação: Verifique se este valor é um segredo e extraia para variáveis de ambiente.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 5,
+                  "snippet": {
+                    "text": "url: $****[REDACTED]****_db}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-007",
+          "level": "error",
+          "message": {
+            "text": "Valor com alta entropia (possível segredo ou chave privada): A chave 'spring.datasource.username' possui entropia calculada de 4.54, indicando alta aleatoriedade típica de segredos gerados criptograficamente. (Remediação: Verifique se este valor é um segredo e extraia para variáveis de ambiente.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 6,
+                  "snippet": {
+                    "text": "userna****[REDACTED]****res}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'spring.datasource.password' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 7,
+                  "snippet": {
+                    "text": "passwo****[REDACTED]****res}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'security.user.password' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 7,
+                  "snippet": {
+                    "text": "passwo****[REDACTED]****res}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'SPRING_DATASOURCE_PASSWORD' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/.env.example",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 4,
+                  "snippet": {
+                    "text": "SPRING****[REDACTED]****word"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "warning",
+          "message": {
+            "text": "Segredo/chave mockada ou default em configuração: A chave 'APP_SECURITY_PASSWORD' contém um valor padrão/mock ('admin123') que pode ser esquecido e enviado para produção. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/enterprise-financial-api/.env.example",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 8,
+                  "snippet": {
+                    "text": "APP_SE****[REDACTED]****n123"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-004",
+          "level": "error",
+          "message": {
+            "text": "URI de banco de dados com credenciais em texto claro: Padrão de segredo identificado na chave 'DATABASE_URL'. (Remediação: Não armazene senhas na string de conexão em arquivos de configuração; injete via variáveis em runtime.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/notification-event-engine/.env.example",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 7,
+                  "snippet": {
+                    "text": "DATABA****[REDACTED]****lic\""
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'services.postgres.environment.POSTGRES_PASSWORD' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 13,
+                  "snippet": {
+                    "text": "POSTGR****[REDACTED]****ord}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'services.financial-api.environment.SPRING_DATASOURCE_PASSWORD' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 60,
+                  "snippet": {
+                    "text": "SPRING****[REDACTED]****ord}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-006",
+          "level": "error",
+          "message": {
+            "text": "Senha ou credencial sensível em texto claro: A chave sensível 'services.financial-api.environment.APP_SECURITY_PASSWORD' contém um valor em texto claro persistido. (Remediação: Remova credenciais estáticas do arquivo. Utilize injeção via variáveis de ambiente ou serviços de secrets management (HashiCorp Vault, AWS Secrets Manager).)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 62,
+                  "snippet": {
+                    "text": "APP_SE****[REDACTED]****123}"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-007",
+          "level": "error",
+          "message": {
+            "text": "Valor com alta entropia (possível segredo ou chave privada): A chave 'services.notification-api.environment.DATABASE_URL' possui entropia calculada de 5.09, indicando alta aleatoriedade típica de segredos gerados criptograficamente. (Remediação: Verifique se este valor é um segredo e extraia para variáveis de ambiente.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 91,
+                  "snippet": {
+                    "text": "DATABA****[REDACTED]****blic"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-SEC-007",
+          "level": "error",
+          "message": {
+            "text": "Valor com alta entropia (possível segredo ou chave privada): A chave 'services.notification-worker.environment.DATABASE_URL' possui entropia calculada de 5.09, indicando alta aleatoriedade típica de segredos gerados criptograficamente. (Remediação: Verifique se este valor é um segredo e extraia para variáveis de ambiente.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 91,
+                  "snippet": {
+                    "text": "DATABA****[REDACTED]****blic"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+name: Ecosystem E2E Integration & DevSecOps Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  e2e-and-audit:
+    name: E2E Integration & DevSecOps Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Orchestrator and Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install CloudSec CLI Audit Engine
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ./cloudsec-cli
+
+      - name: Start Ecosystem Containers via Docker Compose
+        run: |
+          echo "Compilando e inicializando ecossistema de microsserviços..."
+          docker compose up -d --build
+
+      - name: Wait for Services Healthchecks
+        run: |
+          echo "Aguardando serviços atingirem estado saudável (PostgreSQL, Redis, Java Actuator e Fastify)..."
+          
+          MAX_ATTEMPTS=35
+          ATTEMPT=0
+          
+          until [[ $ATTEMPT -ge $MAX_ATTEMPTS ]]; do
+            ATTEMPT=$((ATTEMPT + 1))
+            
+            PG_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' ecosystem-postgres 2>/dev/null || echo '"unknown"')
+            REDIS_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' ecosystem-redis 2>/dev/null || echo '"unknown"')
+            JAVA_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' ecosystem-financial-api 2>/dev/null || echo '"unknown"')
+            NODE_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' ecosystem-notification-api 2>/dev/null || echo '"unknown"')
+            
+            echo "[Tentativa $ATTEMPT/$MAX_ATTEMPTS] PG: $PG_STATUS | Redis: $REDIS_STATUS | Java: $JAVA_STATUS | Node: $NODE_STATUS"
+            
+            if [[ "$PG_STATUS" == '"healthy"' && "$REDIS_STATUS" == '"healthy"' && "$JAVA_STATUS" == '"healthy"' && "$NODE_STATUS" == '"healthy"' ]]; then
+              echo "Todos os 4 serviços com healthcheck estão com status HEALTHY!"
+              exit 0
+            fi
+            
+            sleep 5
+          done
+          
+          echo "::error::Tempo esgotado aguardando healthchecks dos contêineres."
+          docker compose ps
+          docker compose logs
+          exit 1
+
+      - name: Run End-to-End (E2E) Integration Tests
+        run: |
+          chmod +x test-e2e.sh
+          ./test-e2e.sh
+
+      - name: Run DevSecOps Ecosystem Audit
+        run: |
+          chmod +x audit-ecosystem.sh
+          ./audit-ecosystem.sh
+
+      - name: Upload DevSecOps SARIF Report to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: AUDIT_REPORT.sarif
+          category: cloudsec-ecosystem-audit
+
+      - name: Teardown Infrastructure
+        if: always()
+        run: |
+          docker compose down -v

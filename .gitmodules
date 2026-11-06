@@ -1,0 +1,9 @@
+[submodule "enterprise-financial-api"]
+	path = enterprise-financial-api
+	url = https://github.com/ViktorGabriel/microservico-enterprise.git
+[submodule "notification-event-engine"]
+	path = notification-event-engine
+	url = https://github.com/ViktorGabriel/event-driven-api.git
+[submodule "cloudsec-cli"]
+	path = cloudsec-cli
+	url = https://github.com/ViktorGabriel/developer-platform-cli-tool.git
