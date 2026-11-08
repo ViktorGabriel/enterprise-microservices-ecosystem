@@ -83,7 +83,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uri": "enterprise-financial-api/src/main/resources/application.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -106,7 +106,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uri": "enterprise-financial-api/src/main/resources/application.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -129,7 +129,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uri": "enterprise-financial-api/src/main/resources/application.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -152,7 +152,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/src/main/resources/application.yml",
+                  "uri": "enterprise-financial-api/src/main/resources/application.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -175,7 +175,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/.env.example",
+                  "uri": "enterprise-financial-api/.env.example",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -198,7 +198,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/enterprise-financial-api/.env.example",
+                  "uri": "enterprise-financial-api/.env.example",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -221,7 +221,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/notification-event-engine/.env.example",
+                  "uri": "notification-event-engine/.env.example",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -244,7 +244,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uri": "docker-compose.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -267,7 +267,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uri": "docker-compose.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -290,7 +290,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uri": "docker-compose.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -313,7 +313,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uri": "docker-compose.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
@@ -336,7 +336,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "D:/meus-projetos/docker-compose.yml",
+                  "uri": "docker-compose.yml",
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {

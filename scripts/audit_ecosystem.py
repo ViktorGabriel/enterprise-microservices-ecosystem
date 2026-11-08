@@ -16,6 +16,8 @@ from pathlib import Path
 # Add cloudsec package from cloudsec-cli/src to sys.path
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
+os.chdir(ROOT_DIR)
+
 CLOUDSEC_SRC = ROOT_DIR / "cloudsec-cli" / "src"
 if not CLOUDSEC_SRC.exists():
     CLOUDSEC_SRC = ROOT_DIR / "Developer- Platform -CLI Tool" / "src"
@@ -56,7 +58,7 @@ def scan_env_file(path: Path) -> list[Finding]:
                     raw_line=line,
                 )
             )
-    return SecretsScanner.scan_entries(entries, target=str(path))
+    return SecretsScanner.scan_entries(entries, target=path.as_posix())
 
 
 def main() -> int:
@@ -68,35 +70,35 @@ def main() -> int:
     findings: list[Finding] = []
     targets_scanned = 0
 
-    # 1. Target Dockerfiles
+    # 1. Target Dockerfiles (relative paths for SARIF compatibility)
     dockerfiles = [
-        ROOT_DIR / "enterprise-financial-api" / "Dockerfile",
-        ROOT_DIR / "notification-event-engine" / "Dockerfile",
-        ROOT_DIR / "cloudsec-cli" / "Dockerfile",
+        Path("enterprise-financial-api/Dockerfile"),
+        Path("notification-event-engine/Dockerfile"),
+        Path("cloudsec-cli/Dockerfile"),
     ]
 
     console.print("[bold yellow]▶ Varrendo Dockerfiles dos Microsserviços...[/bold yellow]")
     for df in dockerfiles:
         if df.exists():
             targets_scanned += 1
-            console.print(f"  • Inspecionando: [dim]{df.relative_to(ROOT_DIR)}[/dim]")
+            console.print(f"  • Inspecionando: [dim]{df.as_posix()}[/dim]")
             findings.extend(DockerfileScanner.scan_file(df))
         else:
             console.print(f"  [yellow]⚠ Aviso: Dockerfile não encontrado: {df}[/yellow]")
 
-    # 2. Target Configuration Files
+    # 2. Target Configuration Files (relative paths for SARIF compatibility)
     config_files = [
-        ROOT_DIR / "enterprise-financial-api" / "src" / "main" / "resources" / "application.yml",
-        ROOT_DIR / "enterprise-financial-api" / ".env.example",
-        ROOT_DIR / "notification-event-engine" / ".env.example",
-        ROOT_DIR / "docker-compose.yml",
+        Path("enterprise-financial-api/src/main/resources/application.yml"),
+        Path("enterprise-financial-api/.env.example"),
+        Path("notification-event-engine/.env.example"),
+        Path("docker-compose.yml"),
     ]
 
     console.print("\n[bold yellow]▶ Varrendo Arquivos de Configuração e Variáveis de Ambiente...[/bold yellow]")
     for cfg in config_files:
         if cfg.exists():
             targets_scanned += 1
-            console.print(f"  • Inspecionando: [dim]{cfg.relative_to(ROOT_DIR)}[/dim]")
+            console.print(f"  • Inspecionando: [dim]{cfg.as_posix()}[/dim]")
             if cfg.name.startswith(".env") or cfg.name.endswith(".env"):
                 findings.extend(scan_env_file(cfg))
             else:
